@@ -1,0 +1,62 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block, everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+autoload -U select-word-style
+select-word-style default
+zstyle ':zle:*kill*' word-style unspecified
+zstyle ':zle:*kill*' word-chars ' /=;@:{}[]()<>,|"'
+
+zstyle ':completion:*' rehash true
+
+source "${HOME}/.zgen/zgen.zsh"
+if ! zgen saved; then
+  zgen oh-my-zsh
+  zgen oh-my-zsh plugins/colored-man-pages
+  zgen oh-my-zsh plugins/common-aliases
+  zgen oh-my-zsh plugins/git
+  zgen oh-my-zsh plugins/gitfast
+  zgen oh-my-zsh plugins/z
+
+  zgen load zsh-users/zsh-autosuggestions
+  zgen load zsh-users/zsh-completions
+  zgen load zsh-users/zsh-history-substring-search
+  zgen load zsh-users/zsh-syntax-highlighting
+  
+  zgen load andrewferrier/fzf-z
+
+  zgen load https://gitlab.com/frankruegamer/git-fzf
+
+  zgen load romkatv/powerlevel10k powerlevel10k
+
+  zgen save
+fi
+
+HISTORY_SUBSTRING_SEARCH_ENSURE_UNIQUE=1
+
+bindkey '^[OA' history-substring-search-up
+bindkey '^[OB' history-substring-search-down
+
+unalias fd
+alias r=ranger
+
+# for f in /usr/share/fzf/*.zsh; do source $f; done
+source <(cat /usr/share/fzf/*.zsh)
+
+if [[ $TERM == xterm-termite ]]; then
+  . /etc/profile.d/vte.sh
+  __vte_osc7
+  export TERM=xterm-256color
+fi
+
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+source /usr/share/nnn/quitcd/quitcd.bash_zsh
+
+export NNN_FIFO='/tmp/nnn.fifo'
+export NNN_PLUG='d:dragdrop;m:nmount;v:preview-tui'
+export NNN_BMS='s:~/.local/share/Steam/userdata/86205768/760/remote/'
+
+# vim: ft=zsh
