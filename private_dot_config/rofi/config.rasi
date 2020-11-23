@@ -1,0 +1,8 @@
+configuration {
+	width: 25;
+	font: "SauceCodePro Nerd Font 11";
+	matching: "regex";
+	theme: "gruvbox-dark";
+}
+
+// vim: noexpandtab
