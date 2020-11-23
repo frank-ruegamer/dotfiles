@@ -1,0 +1,104 @@
+" Plugins {{{
+call plug#begin('~/.vim/plugged')
+Plug 'ap/vim-buftabline'
+Plug 'itchyny/lightline.vim'
+Plug 'morhetz/gruvbox'
+Plug 'tpope/vim-characterize'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-unimpaired'
+Plug 'unblevable/quick-scope'
+call plug#end()
+" }}}
+" Search {{{
+set incsearch
+set ignorecase
+set smartcase
+
+augroup vimrc-incsearch-highlight
+    autocmd!
+    autocmd CmdlineEnter [/\?] :set hlsearch
+    autocmd CmdlineLeave [/\?] :set nohlsearch
+augroup END
+" }}}
+" Editing {{{
+" Tab.
+set tabstop=4
+set shiftwidth=4
+set expandtab
+
+set number
+set numberwidth=3
+" }}}
+" Behaviour {{{
+set autoread
+
+set clipboard=unnamedplus
+
+set nowrap
+set scrolloff=1
+
+set showcmd
+set wildmenu
+" }}}
+" Language specific settings {{{
+filetype plugin indent on
+
+autocmd FileType markdown setlocal ts=2 sw=2
+autocmd BufRead,BufNewFile *.tex setlocal ts=2 sw=2 tw=80
+" }}}
+" Look {{{
+colorscheme gruvbox
+set background=dark
+hi Normal ctermbg=NONE
+
+set list
+set listchars=tab:»\ ,extends:›,precedes:‹,nbsp:·,trail:•
+
+set ttimeoutlen=0
+" }}}
+" Keybindings {{{
+" Highlight last insertion
+nnoremap gV `[v`]
+
+" Quick vimrc commands
+nmap <silent> <leader>ev :e $MYVIMRC<CR>
+nmap <silent> <leader>sv :so $MYVIMRC<CR>
+" }}}
+" Plugin: lightline.vim {{{
+set laststatus=2
+set noshowmode
+let g:lightline={
+            \ 'colorscheme': 'gruvbox',
+            \ 'active': {
+            \   'left':  [ [ 'mode', 'paste' ],
+            \              [ 'fugitive', 'readonly', 'filename', 'modified' ] ],
+            \   'right': [ [ 'lineinfo' ],
+            \              [ 'percent' ],
+            \              [ 'fileencoding', 'filetype' ] ]
+            \ },
+            \ 'component': {
+            \   'readonly': '%{&readonly?"":""}'
+            \ },
+            \ 'component_function': {
+            \   'fugitive': 'LightlineFugitive'
+            \ },
+            \ 'separator': { 'left': '' },
+            \ 'subseparator': { 'left': '' }
+            \ }
+
+function! LightlineFugitive()
+    if exists("*fugitive#head")
+        let branch = fugitive#head()
+        return branch !=# '' ? ' '.branch : ''
+    endif
+    return ''
+endfunction
+" }}}
+" Plugin: buftabline.vim {{{
+let g:buftabline_show=1
+" }}}
+
+" vim:foldmethod=marker
