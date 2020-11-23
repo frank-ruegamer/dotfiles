@@ -1,0 +1,17 @@
+#!/bin/bash
+
+file=$(basename "${1}")
+cwd=$(dirname $(readlink -f "${1}"))
+shift
+[[ $# -gt 0 ]] && monitor='-m'
+
+inotifywait "${monitor}" "${cwd}" -e close_write -q --format "%f" | while read event; do
+  if [[ $event = $file ]]; then
+    if [[ $# -gt 0 ]]; then
+      echo "> ${@}"
+      eval "${@}"
+    else
+      exit 0
+    fi
+  fi
+done

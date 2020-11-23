@@ -1,0 +1,28 @@
+#!/bin/sh
+
+wasnoisy=$(pacmd list-sinks | grep -q muted:.no)$?
+mpdstate=$(mpc 2> /dev/null | sed -n '2p' | cut -d "[" -f2 | cut -d "]" -f1)
+
+function before_lock {
+	[ $wasnoisy -eq 0 ] && pactl set-sink-mute 0 true
+	[ "$mpdstate" == "playing" ] && mpc -q pause
+	xset dpms 8 8 8
+}
+
+function lock {
+	/usr/bin/i3lock-next
+}
+
+function after_lock {
+	[ $wasnoisy -eq 0 ] && pactl set-sink-mute 0 false
+	[ "$mpdstate" == "playing" ] && mpc -q play
+	xset dpms 0 0 0
+}
+
+function main {
+	before_lock
+	lock
+	after_lock
+}
+
+main "$@"

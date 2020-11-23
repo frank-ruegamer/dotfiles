@@ -1,0 +1,48 @@
+#!/bin/bash
+
+REPO="${HOME}/dotfiles"
+
+repo_directory=$(dirname "${REPO}")
+
+name="${1}"
+shift
+files=("${@}")
+
+error() {
+	printf '%s\n' "$*" >&2
+  exit 1
+}
+
+move_file() {
+  local file=$(readlink -f "${1}")
+  local file_path=$(dirname "${file}")
+  local dot_directory=$(realpath --relative-to="${repo_directory}" "${file_path}")
+  local abs_path="${REPO}/${name}/${dot_directory}"
+  mkdir -p "${abs_path}"
+  mv "${file}" "${abs_path}"
+  stow -v -d "${REPO}" -t "${HOME}" "${name}"
+}
+
+if [[ ! -d $REPO ]]; then
+  error "Dotfiles directory does not exist: $REPO"
+fi
+
+if [[ -z $name ]]; then
+  error 'No name given'
+elif [[ ${#files[@]} -eq 0 ]]; then
+  error 'No files to stow'
+fi
+
+for file in "${files[@]}"; do
+  if [[ ! -e $file ]]; then
+    error "${file} does not exists"
+  elif [[ -L $file ]]; then
+    error "${file} is already a symlink"
+  elif [[ $(readlink -f $file) = $REPO/* ]]; then
+    error "${file} is already under dotfiles directory"
+  fi
+done
+
+for file in "${files[@]}"; do
+  move_file "${file}"
+done

@@ -1,0 +1,106 @@
+#!/bin/sh
+
+_debug=false
+# _debug=true
+
+polybar_height=$(polybar --dump=height bottom)
+# gaps_sum=$(bspc config window_gap)
+gaps_sum=0
+border_width=$(bspc config border_width)
+
+focused_window_id=$(xdotool getwindowfocus)
+
+err() {
+	printf '%s\n\n' "$*" >&2
+}
+
+usage() {
+	while read; do printf '%s\n' "$REPLY"; done <<- EOF
+		Usage: $(basename $BASH_SOURCE) DIRECTION [DIRECTION]
+
+		DIRECTION := left|down|up|right
+
+		Moves a floating window to an edge / a corner of the screen
+
+		Flags:
+		  -h, --help	Show this message.
+	EOF
+	exit 1
+}
+
+function get_screen_dimensions {
+	# set screen_width
+	# set screen_height
+	read screen_width screen_height <<<$(xdotool getdisplaygeometry)
+}
+
+function get_window_dimensions {
+	# set window_width
+	# set window_height
+	eval $(xwininfo -id $focused_window_id |
+	  sed -n -e "s/^ \+Width: \+\([0-9]\+\).*/window_width=\1/p" \
+			 -e "s/^ \+Height: \+\([0-9]\+\).*/window_height=\1/p" )
+}
+
+function move_to_absolute {
+	local x=$1
+	local y=$2
+	[ $_debug = true ] && echo "Moving window to x=$x, y=$y"
+	xdotool windowmove $focused_window_id $x $y
+}
+
+function move {
+	local direction=$1
+
+	x="x"
+	y="y"
+
+	case $direction in
+		left|l)
+			x=$gaps_sum ;;
+		down|d)
+			y=$(( $screen_height - $polybar_height - $gaps_sum - ($border_width * 2) - $window_height )) ;;
+		up|u)
+			y=$gaps_sum ;;
+		right|r)
+			x=$(( $screen_width - $gaps_sum - ($border_width * 2) - $window_width )) ;;
+		*)
+			err "Unknown direction: $direction"
+			return 1 ;;
+	esac
+
+	move_to_absolute $x $y
+}
+
+function print_variables {
+	echo "Screen Width: $screen_width"
+	echo "Screen Height: $screen_height"
+	echo "Focused Window Id: $focused_window_id"
+	echo "Window Width: $window_width"
+	echo "Window Height: $window_height"
+	echo "Gaps Sum: $gaps_sum"
+	echo "Border Width: $border_width"
+	echo "Polybar Height: $polybar_height"
+}
+
+function main {
+	get_screen_dimensions
+	get_window_dimensions
+	if [ $_debug = true ]; then
+		print_variables
+	fi
+
+	case $# in
+		1|2)
+			for arg in "$@"; do
+				move "$arg" || usage
+			done
+			;;
+		*)
+			err "Incorrect number of arguments"
+			usage
+			;;
+	esac
+}
+
+main "$@"

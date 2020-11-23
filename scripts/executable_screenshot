@@ -1,0 +1,63 @@
+#!/bin/bash
+
+tmpfile="/tmp/maim.png"
+screenshot_folder="$HOME/screenshots"
+
+function usage {
+    echo "Usage:"
+    echo "$(basename $BASH_SOURCE) -{a,s} -{f,c}"
+}
+
+function screenshot_active_window_to_file {
+    maim -i $(xdotool getactivewindow) -n 1 -u "${tmpfile}" && to_file
+}
+
+function screenshot_active_window_to_clipboard {
+    maim -i $(xdotool getactivewindow) -n 1 -u | to_clipboard
+}
+
+function screenshot_selection_to_file {
+    maim -st 0 -u "${tmpfile}" && to_file
+}
+
+function screenshot_selection_to_clipboard {
+    maim -st 0 -u | to_clipboard
+}
+
+function to_file {
+    local date=$(date '+%F-%H%M%S')
+    local size=$(identify -format '%wx%h' "${tmpfile}")
+    local newname="${date}_${size}.png"
+    mkdir -p "${screenshot_folder}"
+    mv "${tmpfile}" "${screenshot_folder}/${newname}"
+}
+
+function to_clipboard {
+    xclip -selection clipboard -t image/png "$@"
+}
+
+while getopts "safc" opt
+do
+    case "${opt}" in
+    a)
+        WHAT='active_window'
+        ;;
+    s)
+        WHAT='selection'
+        ;;
+    f)
+        WHERE='file'
+        ;;
+    c)
+        WHERE='clipboard'
+        ;;
+    esac
+done
+
+if [ -z "${WHAT+x}" ] || [ -z "${WHERE+x}" ] ; then
+    usage
+    exit 1
+fi
+
+functionname="screenshot_${WHAT}_to_${WHERE}"
+eval "${functionname}"

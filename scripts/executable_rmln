@@ -1,0 +1,18 @@
+#!/bin/bash
+
+set -e
+
+file="${1}"
+
+error() {
+  local message="${*}"
+  echo "[ERROR] ${message}" >&2
+  exit 1
+}
+
+if [[ ! -L $file ]]; then
+  error "${file} is not a symlink"
+fi
+
+target=$(readlink -f "${file}")
+rm -r "${file}" && cp -r "${target}" "${file}"

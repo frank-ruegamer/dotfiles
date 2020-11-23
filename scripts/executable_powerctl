@@ -1,0 +1,42 @@
+#!/bin/sh
+
+function err {
+	printf '%s\n' "$*" >&2;
+}
+
+function usage {
+	while read; do printf '%s\n' "$REPLY"; done <<- EOF
+		Usage: $(basename $BASH_SOURCE) {}
+	EOF
+	exit 2
+}
+
+function lock {
+	./lock.sh
+}
+
+function execute {
+	local action=$1
+
+	case $action in
+		lock)
+			lock ;;
+		suspend)
+			lock & sleep 3 && systemctl suspend ;;
+		hibernate)
+			lock & sleep 3 && systemctl hibernate ;;
+		reboot|restart)
+			systemctl reboot ;;
+		shutdown|poweroff)
+			systemctl poweroff ;;
+		*)
+			err "Unknown action: $action"
+			return 1 ;;
+	esac
+}
+
+function main {
+	execute $1 || usage
+}
+
+main "$@"
