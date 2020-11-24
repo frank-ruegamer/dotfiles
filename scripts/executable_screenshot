@@ -1,27 +1,21 @@
 #!/bin/bash
 
+set -e
+
 tmpfile="/tmp/maim.png"
 screenshot_folder="$HOME/screenshots"
 
 function usage {
     echo "Usage:"
-    echo "$(basename $BASH_SOURCE) -{a,s} -{f,c}"
+    echo "$(basename $BASH_SOURCE) -{f,c}"
 }
 
-function screenshot_active_window_to_file {
-    maim -i $(xdotool getactivewindow) -n 1 -u "${tmpfile}" && to_file
+function screenshot_to_file {
+    maim -sun "${tmpfile}" && to_file
 }
 
-function screenshot_active_window_to_clipboard {
-    maim -i $(xdotool getactivewindow) -n 1 -u | to_clipboard
-}
-
-function screenshot_selection_to_file {
-    maim -st 0 -u "${tmpfile}" && to_file
-}
-
-function screenshot_selection_to_clipboard {
-    maim -st 0 -u | to_clipboard
+function screenshot_to_clipboard {
+    maim -sun | to_clipboard
 }
 
 function to_file {
@@ -36,15 +30,8 @@ function to_clipboard {
     xclip -selection clipboard -t image/png "$@"
 }
 
-while getopts "safc" opt
-do
+while getopts "fc" opt; do
     case "${opt}" in
-    a)
-        WHAT='active_window'
-        ;;
-    s)
-        WHAT='selection'
-        ;;
     f)
         WHERE='file'
         ;;
@@ -54,10 +41,10 @@ do
     esac
 done
 
-if [ -z "${WHAT+x}" ] || [ -z "${WHERE+x}" ] ; then
+if [ -z "${WHERE+x}" ]; then
     usage
     exit 1
 fi
 
-functionname="screenshot_${WHAT}_to_${WHERE}"
+functionname="screenshot_to_${WHERE}"
 eval "${functionname}"
