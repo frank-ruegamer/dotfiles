@@ -1,1 +1,5 @@
 .vimrc
+
+{{ if (ne .env "home") }}
+.config/termite
+{{ end }}
