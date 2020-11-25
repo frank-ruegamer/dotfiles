@@ -5,4 +5,4 @@ configuration {
 	theme: "gruvbox-dark";
 }
 
-// vim: noexpandtab
+/* vim: set noet ft=css: */
