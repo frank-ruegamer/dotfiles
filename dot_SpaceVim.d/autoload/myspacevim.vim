@@ -1,8 +1,8 @@
 function! myspacevim#before() abort
   set ignorecase
   set smartcase
+  set showcmd
   set clipboard=unnamedplus
-  set nohls
   nnoremap <expr> j v:count ? 'j' : 'gj'
   nnoremap <expr> k v:count ? 'k' : 'gk'
   autocmd FileType *tex setlocal wrap spell spl=de,en
@@ -12,4 +12,6 @@ function! myspacevim#before() abort
 endfunction
 
 function! myspacevim#after() abort
+  set background=dark
+  hi Normal guibg=NONE ctermbg=NONE
 endfunction
