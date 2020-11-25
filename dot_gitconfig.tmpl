@@ -1,10 +1,9 @@
-# This is Git's per-user configuration file.
 [user]
 	name = Frank Rügamer
 	email = {{ .email }}
 [alias]
-  ignore = "!gi() { IFS=','; curl -sL https://www.gitignore.io/api/\"$*\"; }; gi"
-  c = "!commit() { git commit -m \"$*\"; }; commit"
+	ignore = "!gi() { IFS=','; curl -sL https://www.gitignore.io/api/\"$*\"; }; gi"
+	c = "!commit() { git commit -m \"$*\"; }; commit"
 [core]
 	pager = diff-so-fancy | less --tabs=4 -R
 [color]
