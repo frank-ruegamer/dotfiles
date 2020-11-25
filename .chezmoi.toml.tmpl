@@ -1,0 +1,10 @@
+{{- $email := promptString "email" -}}
+{{- $env := promptString "environment" -}}
+[diff]
+  format = "git"
+  pager = "diff-so-fancy | less --tabs=4 -R"
+[data]
+  email = "{{ $email }}"
+  env = "{{ $env }}"
+
+# vim: ft=conf
