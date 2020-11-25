@@ -41,14 +41,28 @@ name = 'shell'
 default_position = 'top'
 default_height = 30
 
-# [[layers]]
-# name = 'lang#latex'
+[[layers]]
+name = 'git'
 
 [[layers]]
-name = 'lang#plantuml'
+name = 'VersionControl'
+
+[[layers]]
+name = "lang#javascript"
 
 [[layers]]
 name = 'lang#sql'
 
+[[layers]]
+name = "lang#latex"
+
+[[layers]]
+name = 'lang#plantuml'
+
+[[custom_plugins]]
+name = "ap/vim-css-color"
+
 [[custom_plugins]]
 name = "tpope/vim-characterize"
+
+# vim: ts=4 sw=4
