@@ -5,4 +5,8 @@ configuration {
 	theme: "gruvbox-dark";
 }
 
+element-icon {
+	size: 1.0em;
+}
+
 /* vim: set noet ft=css: */
