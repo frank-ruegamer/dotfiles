@@ -24,9 +24,9 @@ augroup vimrc-incsearch-highlight
 augroup END
 " }}}
 " Editing {{{
-" Tab.
 set tabstop=4
-set shiftwidth=4
+set softtabstop=-1
+set shiftwidth=0
 set expandtab
 
 set number
@@ -44,9 +44,10 @@ set showcmd
 set wildmenu
 " }}}
 " Language specific settings {{{
+set modeline
 filetype plugin indent on
 
-autocmd FileType markdown setlocal ts=2 sw=2
+autocmd FileType markdown,ruby,yaml,json setlocal ts=2
 autocmd BufRead,BufNewFile *.tex setlocal ts=2 sw=2 tw=80
 " }}}
 " Look {{{
@@ -99,6 +100,9 @@ endfunction
 " }}}
 " Plugin: buftabline.vim {{{
 let g:buftabline_show=1
+" }}}
+" Plugin: quick-scope {{{
+let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 " }}}
 
 " vim:foldmethod=marker
