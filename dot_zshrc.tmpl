@@ -8,25 +8,35 @@ fi
 autoload -U select-word-style
 select-word-style default
 zstyle ':zle:*kill*' word-style unspecified
-zstyle ':zle:*kill*' word-chars ' /=;@:{}[]()<>,|"'
+zstyle ':zle:*kill*' word-chars " /=;@:{}[]()<>,|\"'"
 
+zstyle ':completion:*' menu yes select
 zstyle ':completion:*' rehash true
+
+HISTORY_SUBSTRING_SEARCH_ENSURE_UNIQUE=1
 
 source "${HOME}/.zgen/zgen.zsh"
 if ! zgen saved; then
   zgen oh-my-zsh
   zgen oh-my-zsh plugins/colored-man-pages
   zgen oh-my-zsh plugins/common-aliases
+  zgen oh-my-zsh plugins/fd
   zgen oh-my-zsh plugins/git
   zgen oh-my-zsh plugins/gitfast
   zgen oh-my-zsh plugins/z
 
   zgen load zsh-users/zsh-autosuggestions
   zgen load zsh-users/zsh-completions
-  zgen load zsh-users/zsh-history-substring-search
   zgen load zsh-users/zsh-syntax-highlighting
-  
-  zgen load andrewferrier/fzf-z
+
+  zgen load Aloxaf/fzf-tab
+
+  {{ if (eq .env "work") -}}
+  # work
+  zgen oh-my-zsh plugins/aws
+  zgen oh-my-zsh plugins/mvn
+  zgen load sparsick/ansible-zsh
+  {{- end }}
 
   zgen load https://gitlab.com/frankruegamer/git-fzf
 
@@ -35,16 +45,35 @@ if ! zgen saved; then
   zgen save
 fi
 
-HISTORY_SUBSTRING_SEARCH_ENSURE_UNIQUE=1
-
-bindkey '^[OA' history-substring-search-up
-bindkey '^[OB' history-substring-search-down
+function o {
+  pid=$(xdg-open "$@" > /dev/null 2>&1 & echo $!)
+  sleep 0.1
+  if kill -0 $pid > /dev/null 2>&1; then
+    return
+  fi
+  for file in "$@"; do
+    (xdg-open "$file" > /dev/null &)
+  done
+}
+autoload -Uz o
 
 unalias fd
-alias r=ranger
+unalias rm
 
-# for f in /usr/share/fzf/*.zsh; do source $f; done
+alias pc='pcmanfm &> /dev/null & disown'
+alias r='ranger'
+alias yarn='yarnpkg'
+
+{{- if (eq .env "work") }}
+alias zdata='. zdata'
+alias ssh='kitty +kitten ssh'
+alias psql='psql -U postgres'
+{{- end }}
+
 source <(cat /usr/share/fzf/*.zsh)
+export FZF_CTRL_T_COMMAND='fd -H'
+
+zstyle ':fzf-tab:*' fzf-bindings 'tab:toggle+down' 'btab:toggle+up'
 
 if [[ $TERM == xterm-termite ]]; then
   . /etc/profile.d/vte.sh
@@ -53,10 +82,14 @@ if [[ $TERM == xterm-termite ]]; then
 fi
 
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-source /usr/share/nnn/quitcd/quitcd.bash_zsh
 
-export NNN_FIFO='/tmp/nnn.fifo'
+source /usr/share/nnn/quitcd/quitcd.bash_zsh
+alias n='n -e'
+
+export NNN_FIFO="/tmp/nnn-${USER}.fifo"
 export NNN_PLUG='d:dragdrop;m:nmount;v:preview-tui'
+{{- if (eq .env "home") }}
 export NNN_BMS='s:~/.local/share/Steam/userdata/86205768/760/remote/'
+{{- end }}
 
 # vim: ft=zsh
