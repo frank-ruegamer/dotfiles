@@ -31,7 +31,8 @@ if ! zgen saved; then
 
   zgen load Aloxaf/fzf-tab
 
-  {{ if (eq .env "work") -}}
+  {{- if (eq .env "work") }}
+
   # work
   zgen oh-my-zsh plugins/aws
   zgen oh-my-zsh plugins/mvn
