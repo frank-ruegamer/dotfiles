@@ -57,7 +57,6 @@ theme.taglist_squares_unsel                     = theme.confdir .. "/icons/squar
 theme.tasklist_plain_task_name                  = true
 theme.tasklist_disable_icon                     = false
 theme.useless_gap                               = 0
-theme.notification_icon_size                    = dpi(64)
 theme.layout_tile                               = theme.confdir .. "/icons/tile.png"
 theme.layout_tilegaps                           = theme.confdir .. "/icons/tilegaps.png"
 theme.layout_tileleft                           = theme.confdir .. "/icons/tileleft.png"
@@ -91,6 +90,7 @@ theme.titlebar_maximized_button_normal_inactive = theme.confdir .. "/icons/title
 theme.titlebar_maximized_button_focus_inactive  = theme.confdir .. "/icons/titlebar/maximized_focus_inactive.png"
 theme.titlebar_maximized_button_normal_active   = theme.confdir .. "/icons/titlebar/maximized_normal_active.png"
 theme.titlebar_maximized_button_focus_active    = theme.confdir .. "/icons/titlebar/maximized_focus_active.png"
+theme.notification_icon_size                    = dpi(64)
 
 local markup = lain.util.markup
 
