@@ -90,7 +90,8 @@ theme.titlebar_maximized_button_normal_inactive = theme.confdir .. "/icons/title
 theme.titlebar_maximized_button_focus_inactive  = theme.confdir .. "/icons/titlebar/maximized_focus_inactive.png"
 theme.titlebar_maximized_button_normal_active   = theme.confdir .. "/icons/titlebar/maximized_normal_active.png"
 theme.titlebar_maximized_button_focus_active    = theme.confdir .. "/icons/titlebar/maximized_focus_active.png"
-theme.notification_icon_size                    = dpi(64)
+theme.notification_icon_size                    = dpi(100)
+theme.notification_font                         = "Terminus 10"
 
 local markup = lain.util.markup
 
