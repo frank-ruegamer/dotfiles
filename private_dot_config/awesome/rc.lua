@@ -136,9 +136,7 @@ awful.util.taglist_buttons = my_table.join(
         if client.focus then
             client.focus:toggle_tag(t)
         end
-    end),
-    awful.button({ }, 4, function(t) awful.tag.viewnext(t.screen) end),
-    awful.button({ }, 5, function(t) awful.tag.viewprev(t.screen) end)
+    end)
 )
 
 awful.util.tasklist_buttons = my_table.join(
@@ -160,7 +158,6 @@ awful.util.tasklist_buttons = my_table.join(
             c:raise()
         end
     end),
-    awful.button({ }, 2, function (c) c:kill() end),
     awful.button({ }, 3, function ()
         local instance = nil
 
@@ -172,9 +169,7 @@ awful.util.tasklist_buttons = my_table.join(
                 instance = awful.menu.clients({theme = {width = dpi(250)}})
             end
         end
-    end),
-    awful.button({ }, 4, function () awful.client.focus.byidx(1) end),
-    awful.button({ }, 5, function () awful.client.focus.byidx(-1) end)
+    end)
 )
 
 lain.layout.termfair.nmaster           = 3
@@ -217,13 +212,6 @@ screen.connect_signal("arrange", function (s)
 end)
 -- Create a wibox for each screen and add it
 awful.screen.connect_for_each_screen(function(s) beautiful.at_screen_connect(s) end)
--- }}}
-
--- {{{ Mouse bindings
-root.buttons(my_table.join(
-    awful.button({ }, 4, awful.tag.viewnext),
-    awful.button({ }, 5, awful.tag.viewprev)
-))
 -- }}}
 
 -- {{{ Key bindings
@@ -705,7 +693,6 @@ client.connect_signal("request::titlebars", function(c)
             c:emit_signal("request::activate", "titlebar", {raise = true})
             awful.mouse.client.move(c)
         end),
-        awful.button({ }, 2, function() c:kill() end),
         awful.button({ }, 3, function()
             c:emit_signal("request::activate", "titlebar", {raise = true})
             awful.mouse.client.resize(c)
@@ -736,11 +723,6 @@ client.connect_signal("request::titlebars", function(c)
         },
         layout = wibox.layout.align.horizontal
     }
-end)
-
--- Enable sloppy focus, so that focus follows mouse.
-client.connect_signal("mouse::enter", function(c)
-    c:emit_signal("request::activate", "mouse_enter", {raise = vi_focus})
 end)
 
 client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
