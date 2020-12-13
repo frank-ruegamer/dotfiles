@@ -380,6 +380,14 @@ globalkeys = my_table.join(
     awful.key({ }, "XF86MonBrightnessDown", function () os.execute("xbacklight -dec 10") end,
               {description = "-10%", group = "hotkeys"}),
 
+    -- Music
+    awful.key({ }, "XF86AudioPlay", function () os.execute("playerctl play-pause") end,
+              {description = "Play | Pause", group = "hotkeys"}),
+    awful.key({ }, "XF86AudioPrev", function () os.execute("playerctl previous") end,
+              {description = "Previous Song", group = "hotkeys"}),
+    awful.key({ }, "XF86AudioNext", function () os.execute("playerctl next") end,
+              {description = "Next Song", group = "hotkeys"}),
+
     -- ALSA volume control
     awful.key({ altkey }, "Up",
         function ()
