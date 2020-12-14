@@ -1,0 +1,118 @@
+#!/bin/bash
+
+get_layouts() {
+  echo $(cat <<"EOJSON"
+[
+  {
+    "name": "Corner NE",
+    "layout": "awful.layout.suit.corner.ne"
+  },
+  {
+    "name": "Corner NW",
+    "layout": "awful.layout.suit.corner.nw"
+  },
+  {
+    "name": "Corner SE",
+    "layout": "awful.layout.suit.corner.se"
+  },
+  {
+    "name": "Corner SW",
+    "layout": "awful.layout.suit.corner.sw"
+  },
+  {
+    "name": "Fair vertical",
+    "layout": "awful.layout.suit.fair"
+  },
+  {
+    "name": "Fair horizontal",
+    "layout": "awful.layout.suit.fair.horizontal"
+  },
+  {
+    "name": "Floating",
+    "layout": "awful.layout.suit.floating"
+  },
+  {
+    "name": "Magnifier",
+    "layout": "awful.layout.suit.magnifier"
+  },
+  {
+    "name": "Max",
+    "layout": "awful.layout.suit.max"
+  },
+  {
+    "name": "Max Fullscreen",
+    "layout": "awful.layout.suit.max.fullscreen"
+  },
+  {
+    "name": "Spiral",
+    "layout": "awful.layout.suit.spiral"
+  },
+  {
+    "name": "Spiral Dwindle",
+    "layout": "awful.layout.suit.spiral.dwindle"
+  },
+  {
+    "name": "Tile",
+    "layout": "awful.layout.suit.tile"
+  },
+  {
+    "name": "Tile bottom",
+    "layout": "awful.layout.suit.tile.bottom"
+  },
+  {
+    "name": "Tile left",
+    "layout": "awful.layout.suit.tile.left"
+  },
+  {
+    "name": "Tile top",
+    "layout": "awful.layout.suit.tile.top"
+  },
+  {
+    "name": "Cascade",
+    "layout": "lain.layout.cascade"
+  },
+  {
+    "name": "Cascade Tile",
+    "layout": "lain.layout.cascade.tile"
+  },
+  {
+    "name": "Centerwork",
+    "layout": "lain.layout.centerwork"
+  },
+  {
+    "name": "Centerwork Horizontal",
+    "layout": "lain.layout.centerwork.horizontal"
+  },
+  {
+    "name": "Termfair",
+    "layout": "lain.layout.termfair"
+  },
+  {
+    "name": "Termfair center",
+    "layout": "lain.layout.termfair.center"
+  }
+]
+EOJSON
+  )
+}
+
+is-entry-selected() {
+  if [[ -n $@ ]]; then
+    return 0
+  else
+    return 1
+  fi
+}
+
+if is-entry-selected "${1}"; then
+  selected="${1}"
+  layouts=$(get_layouts)
+  layout=$(get_layouts | jq -r ".[] | select(.name == \"${selected}\").layout")
+  awesome-client <<EOLUA
+    awful=require('awful')
+    lain=require('lain')
+    awful.layout.set(${layout})
+EOLUA
+else
+  get_layouts | jq -r '.[] | "\(.name)"'
+fi
