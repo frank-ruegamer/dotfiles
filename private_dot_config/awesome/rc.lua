@@ -381,13 +381,13 @@ globalkeys = my_table.join(
               {description = "-10%", group = "hotkeys"}),
 
     -- Music
-    awful.key({ }, "XF86AudioPlay", function () os.execute("playerctl play-pause") end,
+    awful.key({ }, "XF86AudioPlay", function () os.execute("playerctl -p spotify play-pause") end,
               {description = "Play | Pause", group = "hotkeys"}),
-    awful.key({ }, "XF86AudioStop", function () os.execute("playerctl stop") end,
+    awful.key({ }, "XF86AudioStop", function () os.execute("playerctl -p spotify stop") end,
               {description = "Stop", group = "hotkeys"}),
-    awful.key({ }, "XF86AudioPrev", function () os.execute("playerctl previous") end,
+    awful.key({ }, "XF86AudioPrev", function () os.execute("playerctl -p spotify previous") end,
               {description = "Previous Song", group = "hotkeys"}),
-    awful.key({ }, "XF86AudioNext", function () os.execute("playerctl next") end,
+    awful.key({ }, "XF86AudioNext", function () os.execute("playerctl -p spotify next") end,
               {description = "Next Song", group = "hotkeys"}),
 
     -- ALSA volume control
