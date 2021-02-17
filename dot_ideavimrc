@@ -1,6 +1,18 @@
+" Plugins
+set NERDTree
+set surround
+set multiple-cursors
+set commentary
+set ReplaceWithRegister
+set argtextobj
+set exchange
+set highlightedyank
+
+" Search
 set incsearch
 set ignorecase
 set smartcase
+
+" Miscellaneous
 set clipboard+=unnamedplus
-set surround
 set ideajoin
