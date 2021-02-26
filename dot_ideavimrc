@@ -8,6 +8,8 @@ set argtextobj
 set exchange
 set highlightedyank
 
+let g:argtextobj_pairs="(:),[:],{:},<:>"
+
 " Search
 set incsearch
 set ignorecase
