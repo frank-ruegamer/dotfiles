@@ -491,6 +491,8 @@ globalkeys = my_table.join(
     -- Prompt
     awful.key({ modkey }, "r", function () awful.spawn("rofi -modi run -show run") end,
               {description = "run prompt", group = "launcher"}),
+     awful.key({ modkey }, "d", function () awful.spawn("rofi -modi drun,window -show drun -drun-match-fields name,exec -show-icons -sidebar-mode") end,
+              {description = "run rofi", group = "launcher"}),
     awful.key({ modkey }, "t", function () awful.spawn("rofi -modi layout:rofi-layout -show layout") end,
               {description = "select awful layout", group = "launcher"}),
 
