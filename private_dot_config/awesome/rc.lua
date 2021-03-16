@@ -26,6 +26,10 @@ local my_table      = awful.util.table or gears.table -- 4.{0,1} compatibility
 local dpi           = require("beautiful.xresources").apply_dpi
 -- }}}
 
+naughty.config.padding = 0
+naughty.config.defaults["screen"] = 1
+naughty.config.defaults["timeout"] = 10
+
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
 -- another config (This code will only ever execute for the fallback config)
