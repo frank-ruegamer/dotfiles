@@ -63,7 +63,9 @@ local function run_once(cmd_arr)
     end
 end
 
-run_once({ "urxvtd", "unclutter -root" }) -- entries must be separated by commas
+run_once({
+    "picom -b --experimental-backends",
+})
 
 -- This function implements the XDG autostart specification
 awful.spawn.with_shell(
