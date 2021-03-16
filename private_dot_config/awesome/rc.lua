@@ -103,7 +103,7 @@ local browser      = os.getenv("BROWSER") or "firefox"
 local scrlocker    = "XSECURELOCK_DISCARD_FIRST_KEYPRESS=0 XSECURELOCK_NO_COMPOSITE=1 xsecurelock"
 
 awful.util.terminal = terminal
-awful.util.tagnames = { "1", "2", "3", "4", "5" }
+awful.util.tagnames = { "1", "2", "3", "4", "5", "6", "7", "8", "9" }
 awful.layout.layouts = {
     awful.layout.suit.floating,
     awful.layout.suit.tile,
