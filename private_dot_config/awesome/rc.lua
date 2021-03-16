@@ -6,6 +6,8 @@
 --]]
 
 -- {{{ Required libraries
+pcall(require, "luarocks.loader")
+
 local awesome, client, mouse, screen, tag = awesome, client, mouse, screen, tag
 local ipairs, string, os, table, tostring, tonumber, type = ipairs, string, os, table, tostring, tonumber, type
 
