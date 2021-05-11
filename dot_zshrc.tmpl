@@ -69,15 +69,18 @@ alias zdata='. zdata'
 alias psql='psql -U postgres'
 {{- end }}
 
+{{- if (eq .chezmoi.osRelease.id "arch") }}
+alias dragon='dragon-drag-and-drop'
+
+source <(cat /usr/share/fzf/*.zsh)
+export FZF_CTRL_T_COMMAND='fd -H'
+{{- end }}
+
 {{- if (eq .chezmoi.osRelease.id "ubuntu") }}
 alias fd='fdfind'
 
 source <(cat /usr/share/doc/fzf/examples/*.zsh)
 export FZF_CTRL_T_COMMAND='fdfind -H'
-{{- else }}
-
-source <(cat /usr/share/fzf/*.zsh)
-export FZF_CTRL_T_COMMAND='fd -H'
 {{- end }}
 
 zstyle ':fzf-tab:*' fzf-bindings 'tab:toggle+down' 'btab:toggle+up'
