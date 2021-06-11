@@ -23,7 +23,6 @@ if ! zgen saved; then
   zgen oh-my-zsh plugins/fd
   zgen oh-my-zsh plugins/git
   zgen oh-my-zsh plugins/gitfast
-  zgen oh-my-zsh plugins/z
 
   zgen load zsh-users/zsh-autosuggestions
   zgen load zsh-users/zsh-completions
@@ -45,6 +44,8 @@ if ! zgen saved; then
 
   zgen save
 fi
+
+eval "$(zoxide init zsh)"
 
 function o {
   pid=$(xdg-open "$@" > /dev/null 2>&1 & echo $!)
