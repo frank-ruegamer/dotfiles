@@ -1,8 +1,12 @@
 configuration {
-	width: 30;
 	font: "SauceCodePro Nerd Font 11";
 	matching: "regex";
-	theme: "gruvbox-dark";
+}
+
+@theme "gruvbox-dark"
+
+window {
+	width: 30%;
 }
 
 element-icon {
