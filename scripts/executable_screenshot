@@ -11,11 +11,11 @@ function usage {
 }
 
 function screenshot_to_file {
-    maim -sun "${tmpfile}" && to_file
+    maim -sun 1 "${tmpfile}" && to_file
 }
 
 function screenshot_to_clipboard {
-    maim -sun | to_clipboard
+    maim -sun 1 | to_clipboard
 }
 
 function to_file {
