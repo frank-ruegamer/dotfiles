@@ -3,3 +3,7 @@
 {{ if (ne .env "home") }}
 .config/termite
 {{ end }}
+
+{{ if ne .chezmoi.osRelease.id "arch" }}
+.config/Code - OSS
+{{ end }}
