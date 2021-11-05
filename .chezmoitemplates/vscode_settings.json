@@ -76,5 +76,7 @@
     "svelte"
   ],
   "cSpell.diagnosticLevel": "Hint",
-  "vim.useSystemClipboard": true
+  "vim.useSystemClipboard": true,
+  "javascript.preferences.importModuleSpecifier": "project-relative",
+  "typescript.preferences.importModuleSpecifier": "project-relative"
 }
