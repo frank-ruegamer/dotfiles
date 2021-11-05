@@ -7,3 +7,7 @@
 {{ if ne .chezmoi.osRelease.id "arch" }}
 .config/Code - OSS
 {{ end }}
+
+{{ if ne .chezmoi.osRelease.id "ubuntu" }}
+.config/Code
+{{ end }}
