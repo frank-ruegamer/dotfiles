@@ -1,16 +1,16 @@
 configuration {
+	width: 30;
 	font: "SauceCodePro Nerd Font 11";
 	matching: "regex";
-}
-
-@theme "gruvbox-dark"
-
-window {
-	width: 30%;
+	theme: "gruvbox-dark";
 }
 
 element-icon {
 	size: 1.0em;
+}
+
+#window {
+	border-radius: 10px;
 }
 
 /* vim: set noet ft=css: */
