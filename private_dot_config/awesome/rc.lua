@@ -386,6 +386,10 @@ globalkeys = my_table.join(
 		end,
 		{ description = "restore minimized", group = "client" }),
 
+	-- Screenshot
+	awful.key({}, "Print", function() awful.spawn("flameshot gui") end,
+		{description = "screenshot", group = "launcher" }),
+
 	-- Dropdown application
 	awful.key({ modkey, }, "z", function() awful.screen.focused().quake:toggle() end,
 		{ description = "dropdown application", group = "launcher" }),
