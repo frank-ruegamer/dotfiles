@@ -7,6 +7,9 @@ set ReplaceWithRegister
 set argtextobj
 set exchange
 set highlightedyank
+set quickscope
+packadd matchit
+set sneak
 
 let g:argtextobj_pairs="(:),[:],{:},<:>"
 
@@ -16,5 +19,7 @@ set ignorecase
 set smartcase
 
 " Miscellaneous
+set showmode
 set clipboard+=unnamedplus
 set ideajoin
+set idearefactormode=keep
