@@ -15,6 +15,7 @@ local watch                                     = require("awful.widget.watch")
 
 local tempo_widget                              = require("widgets.tempo-tracker.tempo")
 local activemq_widget                           = require("widgets.activemq-queues.activemq")
+local spotify_widget                            = require("widgets.spotify.spotify")
 
 local os                                        = os
 local my_table                                  = awful.util.table or gears.table -- 4.{0,1} compatibility
@@ -269,6 +270,22 @@ theme.mpd = lain.widget.mpd({
 	end
 })
 
+local function box_margins(widget)
+  return {
+    {
+      widget,
+      top = dpi(5),
+      bottom = dpi(3),
+      left = dpi(10),
+      right = dpi(10),
+      widget = wibox.container.margin,
+    },
+    bg = theme.bg_normal,
+    shape = gears.shape.rounded_rect,
+    widget = wibox.container.background,
+  }
+end
+
 function theme.at_screen_connect(s)
 	-- Quake application
 	s.quake = lain.util.quake({ app = awful.util.terminal })
@@ -308,23 +325,6 @@ function theme.at_screen_connect(s)
 	-- Create a tasklist widget
 	s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, awful.util.tasklist_buttons)
 
-	local function box_margins(widget)
-		return {
-			{
-				-- { widget, widget = wibox.container.place },
-				widget,
-				top = dpi(5),
-				bottom = dpi(3),
-				left = dpi(10),
-				right = dpi(10),
-				widget = wibox.container.margin,
-			},
-			bg = theme.bg_normal,
-			shape = gears.shape.rounded_rect,
-			widget = wibox.container.background,
-		}
-	end
-
 	s.tagwibox = awful.wibar({ position = "top", screen = s, height = dpi(35), bg = "#00000000" })
 	-- naughty.notify({ text = "next: " .. type(s.index) })
 	s.tagwibox:setup {
@@ -335,6 +335,10 @@ function theme.at_screen_connect(s)
 				-- max_widget_size = 600,
 				{
 					box_margins(tempo_widget),
+					widget = wibox.container.place,
+				},
+				{
+					box_margins(spotify_widget),
 					widget = wibox.container.place,
 				},
 				{

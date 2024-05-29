@@ -603,7 +603,6 @@ for i = 1, 9 do
 				local screen = awful.screen.focused()
 				local tag = screen.tags[i]
 				if tag then
-                    naughty.notify({text = tostring(tag.selected)})
 					awful.tag.viewtoggle(tag)
 				end
 			end,
@@ -679,6 +678,10 @@ awful.rules.rules = {
 	{
 		rule = { class = "Firefox" },
 		properties = { screen = 1, tag = awful.util.tagnames[1] }
+	},
+	{
+		rule = { instance = "Alert", class = "firefox" },
+		properties = { floating = true, screen = 1, ontop = true, sticky = true, focusable = false, titlebars_enabled = false, x = 2200, y = 45 }
 	},
 	{
 		rule = { class = "Slack" },
