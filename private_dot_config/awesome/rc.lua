@@ -484,6 +484,8 @@ globalkeys = my_table.join(
 		{ description = "run rofi-idea", group = "launcher" }),
 	awful.key({ modkey, "Shift" }, "i", function() awful.spawn("rofi-code") end,
 		{ description = "run rofi-code", group = "launcher" }),
+	awful.key({ modkey }, "y", function() awful.spawn("rofi-github") end,
+		{ description = "run rofi-code", group = "launcher" }),
 
 	-- Default
 	--[[ Menubar
