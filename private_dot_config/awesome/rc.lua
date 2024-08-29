@@ -401,15 +401,15 @@ globalkeys = my_table.join(
 		{ description = "-10%", group = "hotkeys" }),
 
 	-- Music
-	awful.key({}, "XF86AudioPlay", function() os.execute("playerctl -p spotify,chromium play-pause") end,
+	awful.key({}, "XF86AudioPlay", function() os.execute("playerctl -p spotify,chromium,firefox play-pause") end,
 		{ description = "Play | Pause", group = "hotkeys" }),
-	awful.key({}, "XF86AudioPause", function() os.execute("playerctl -p spotify,chromium pause") end,
+	awful.key({}, "XF86AudioPause", function() os.execute("playerctl -p spotify,chromium,firefox pause") end,
 		{ description = "Play | Pause", group = "hotkeys" }),
-	awful.key({}, "XF86AudioStop", function() os.execute("playerctl -p spotify,chromium stop") end,
+	awful.key({}, "XF86AudioStop", function() os.execute("playerctl -p spotify,chromium,firefox stop") end,
 		{ description = "Stop", group = "hotkeys" }),
-	awful.key({}, "XF86AudioPrev", function() os.execute("playerctl -p spotify,chromium previous") end,
+	awful.key({}, "XF86AudioPrev", function() os.execute("playerctl -p spotify,chromium,firefox previous") end,
 		{ description = "Previous Song", group = "hotkeys" }),
-	awful.key({}, "XF86AudioNext", function() os.execute("playerctl -p spotify,chromium next") end,
+	awful.key({}, "XF86AudioNext", function() os.execute("playerctl -p spotify,chromium,firefox next") end,
 		{ description = "Next Song", group = "hotkeys" }),
 
 	-- ALSA volume control
