@@ -1,21 +1,21 @@
 #!/bin/sh
 
-function err {
+err() {
 	printf '%s\n' "$*" >&2;
 }
 
-function usage {
+usage() {
 	while read; do printf '%s\n' "$REPLY"; done <<- EOF
 		Usage: $(basename $BASH_SOURCE) {}
 	EOF
 	exit 2
 }
 
-function lock {
+lock() {
 	./lock.sh
 }
 
-function execute {
+execute() {
 	local action=$1
 
 	case $action in
@@ -35,7 +35,7 @@ function execute {
 	esac
 }
 
-function main {
+main() {
 	execute $1 || usage
 }
 

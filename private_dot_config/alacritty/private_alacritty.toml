@@ -26,10 +26,10 @@ background = "#181a1b"
 foreground = "#ebdbb2"
 
 [font]
-size = 9.0
+size = 8.0
 
 [font.normal]
-family = "SauceCodePro Nerd Font Mono"
+family = "SauceCodePro Nerd Font"
 style = "SemiBold"
 
 [[hints.enabled]]
@@ -46,7 +46,7 @@ enabled = true
 mods = "Control|Shift"
 
 [selection]
-semantic_escape_chars = ",│`|\"' ()[]{}<>\t"
+semantic_escape_chars = """,│`|"' ()[]{}<>\t"""
 
 [window]
 dynamic_padding = true

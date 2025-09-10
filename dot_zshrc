@@ -15,6 +15,7 @@ zstyle ':z4h:bindkey' keyboard  'pc'
 
 # Don't start tmux.
 zstyle ':z4h:' start-tmux       no
+# zstyle ':z4h:' prompt-at-bottom 'no'
 
 # Mark up shell's output with semantic information.
 zstyle ':z4h:' term-shell-integration 'yes'
@@ -49,6 +50,8 @@ zstyle ':z4h:ssh:*' send-extra-files '~/.nanorc' '~/.env.zsh'
 z4h install ohmyzsh/ohmyzsh || return
 z4h install MichaelAquilina/zsh-autoswitch-virtualenv || return
 
+fpath=($fpath "${HOME}/.config/zsh-autocompletions")
+
 # Install or update core components (fzf, zsh-autosuggestions, etc.) and
 # initialize Zsh. After this point console I/O is unavailable until Zsh
 # is fully initialized. Everything that requires user interaction or can
@@ -77,7 +80,7 @@ z4h source MichaelAquilina/zsh-autoswitch-virtualenv/autoswitch_virtualenv.plugi
 z4h source "${HOME}/.zsh_plugins/git-fzf/git-fzf.plugin.zsh"
 
 eval "$(zoxide init zsh)"
-source <(cat /usr/share/doc/fzf/examples/*.zsh)
+source <(fzf --zsh)
 
 # Define key bindings.
 z4h bindkey z4h-backward-kill-word  Ctrl+Backspace     Ctrl+H

@@ -605,7 +605,16 @@ for i = 1, 9 do
 				local screen = awful.screen.focused()
 				local tag = screen.tags[i]
 				if tag then
+
 					awful.tag.viewtoggle(tag)
+					if tag.selected then
+						local clients = tag:clients()
+						if next(clients) ~= nil then
+							c = clients[1]
+							client.focus = c
+							c:raise()
+						end
+					end
 				end
 			end,
 			descr_toggle),
@@ -678,7 +687,7 @@ awful.rules.rules = {
 	},
 
 	{
-		rule = { class = "Firefox" },
+		rule = { class = "zen" },
 		properties = { screen = 1, tag = awful.util.tagnames[1] }
 	},
 	{
@@ -687,6 +696,10 @@ awful.rules.rules = {
 	},
 	{
 		rule = { class = "Slack" },
+		properties = { screen = 1, tag = awful.util.tagnames[2] }
+	},
+	{
+		rule = { class = "Cliq" },
 		properties = { screen = 1, tag = awful.util.tagnames[2] }
 	},
 	{
